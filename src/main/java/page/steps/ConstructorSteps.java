@@ -18,6 +18,9 @@ public class ConstructorSteps {
     private By bunsSection = By.xpath(".//h2[text()='Булки']");
     private By sauceSection = By.xpath(".//h2[text()='Соусы']");
     private By fillingSection = By.xpath(".//h2[text()='Начинки']");
+    private By activeBunsSection = By.xpath("//div[contains(@class,'tab_tab_type_current__2BEPc')]/span[text()='Булки']");
+    private By activeSauceSection = By.xpath("//div[contains(@class,'tab_tab_type_current__2BEPc')]/span[text()='Соусы']");
+    private By activeFillingSection = By.xpath("//div[contains(@class,'tab_tab_type_current__2BEPc')]/span[text()='Начинки']");
 
     public ConstructorSteps(WebDriver driver) {
         this.driver = driver;
@@ -28,11 +31,13 @@ public class ConstructorSteps {
         new WebDriverWait(driver, Duration.ofSeconds(15))
                 .until(ExpectedConditions.visibilityOfElementLocated(mainPageCreateOrder));
     }
+
     public void clickConstructorButton() {
         driver.findElement(constructorButton).click();
         new WebDriverWait(driver, Duration.ofSeconds(15))
                 .until(ExpectedConditions.visibilityOfElementLocated(mainPageCreateOrder));
     }
+
     public boolean isConstructorPageVisible() {
         try {
             return new WebDriverWait(driver, Duration.ofSeconds(10))
@@ -42,46 +47,47 @@ public class ConstructorSteps {
             return false;
         }
     }
+
     public void clickBunsSection() {
         driver.findElement(bunsSectionButton).click();
         new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(bunsSection));
     }
+
     public void clickSauceSection() {
         driver.findElement(sauceSectionButton).click();
         new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(sauceSection));
     }
+
     public void clickFillingSection() {
         driver.findElement(fillingSectionButton).click();
         new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(fillingSection));
     }
-    public boolean isBunsSectionVisible() {
-        try {
-            return new WebDriverWait(driver, Duration.ofSeconds(10))
-                    .until(ExpectedConditions.visibilityOfElementLocated(bunsSection)).isDisplayed();
-        } catch (Exception ignored) {
-            System.out.println("Раздел Булки не открыт: " + ignored.getMessage());
-            return false;
-        }
+
+    public boolean isBunSectionActive() {
+        return isSectionActive(activeBunsSection, "Булки");
     }
-    public boolean isSauceSectionVisible() {
-        try {
-            return new WebDriverWait(driver, Duration.ofSeconds(10))
-                    .until(ExpectedConditions.visibilityOfElementLocated(sauceSection)).isDisplayed();
-        } catch (Exception ignored) {
-            System.out.println("Раздел Соусы не открыт: " + ignored.getMessage());
-            return false;
-        }
+
+    public boolean isSauceSectionActive() {
+        return isSectionActive(activeSauceSection, "Соусы");
     }
-    public boolean isFillingSectionVisible() {
+
+    public boolean isFillingSectionActive() {
+        return isSectionActive(activeFillingSection, "Начинки");
+    }
+
+    private boolean isSectionActive(By locator, String sectionName) {
         try {
-            return new WebDriverWait(driver, Duration.ofSeconds(10))
-                    .until(ExpectedConditions.visibilityOfElementLocated(fillingSection)).isDisplayed();
-        } catch (Exception ignored) {
-            System.out.println("Раздел Начинки не открыт: " + ignored.getMessage());
+            new WebDriverWait(driver, Duration.ofSeconds(20))
+                .until(ExpectedConditions.visibilityOfElementLocated(locator));
+            return true;
+        } catch (Exception e) {
+            System.out.println("Раздел " + sectionName + " не активен: " + e.getMessage());
             return false;
         }
     }
 }
+
+

@@ -1,7 +1,6 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -26,7 +25,7 @@ public class BaseTest {
 
     @Before
     public void initBrowser() {
-        String browser = System.getProperty("browser", "yandex");
+        String browser = System.getProperty("browser", "chrome");
         if (browser.equals("chrome")) {
             startBrowserChrome();
         } else if (browser.equals("yandex")) {

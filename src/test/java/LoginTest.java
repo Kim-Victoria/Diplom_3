@@ -1,27 +1,32 @@
+import api.steps.UserApiSteps;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
+import models.UserModel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import page.steps.LoginSteps;
-import java.util.UUID;
+
+import static api.steps.UserApiSteps.*;
 import static org.junit.Assert.*;
 
 @DisplayName("Тесты на вход пользователя")
 public class LoginTest extends BaseTest {
-    private static String name;
     private static String email;
     private static String password;
+    private static String name;
     private static String accessToken;
+    private UserModel user;
 
     @Before
     public void createUser() {
-    email ="user"+UUID.randomUUID().toString().substring(0,5) +"@mail.ru";
-    password ="123456";
-    name ="TestUser";
-    Response response = LoginSteps.createUser(name, email, password);
+    email = generateUniqueEmail();
+    password = generateUniquePassword();
+    name = generateUniqueName();
+    user = new UserModel(email, password, name);
+    Response response = UserApiSteps.createUser(user);
     assertEquals("Ошибка при создании пользователя", 200, response.getStatusCode());
     accessToken = response.then().extract().path("accessToken");
     assertNotNull("accessToken не получен", accessToken);
@@ -30,7 +35,7 @@ public class LoginTest extends BaseTest {
     @After
     public void tearDown() {
         if (accessToken != null) {
-            LoginSteps.deleteUser(accessToken);
+            UserApiSteps.deleteUser(accessToken);
         }
     }
 

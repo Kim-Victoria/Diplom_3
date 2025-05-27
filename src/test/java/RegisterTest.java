@@ -1,9 +1,9 @@
+import api.steps.UserApiSteps;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
 import page.steps.RegisterSteps;
-import java.util.UUID;
 import static org.junit.Assert.assertTrue;
 
 @DisplayName("Тесты на регистрацию пользователя")
@@ -16,7 +16,7 @@ public class RegisterTest extends BaseTest {
         RegisterSteps objRegisterSteps = new RegisterSteps(driver);
         String name = generateUsername();
         String email = generateEmail();
-        String password = "1234567";
+        String password = generatePassword();
 
         openRegistrationForm(objRegisterSteps);
         registerWithCredentials(objRegisterSteps, name, email, password);
@@ -38,12 +38,16 @@ public class RegisterTest extends BaseTest {
     }
     @Step("Генерация уникального имени пользователя")
     private String generateUsername() {
-        return "user" + UUID.randomUUID().toString().substring(0, 5);
+        return UserApiSteps.generateUniqueName();
     }
 
     @Step("Генерация уникального email")
     private String generateEmail() {
-        return "test" + UUID.randomUUID().toString().substring(0, 5) + "@mail.ru";
+        return UserApiSteps.generateUniqueEmail();
+    }
+    @Step("Генерация уникального пароля")
+    private String generatePassword() {
+        return UserApiSteps.generateUniquePassword();
     }
 
     @Step("Открытие формы регистрации через личный кабинет")

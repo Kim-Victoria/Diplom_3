@@ -15,15 +15,16 @@ public class ConstructorSectionsTest extends BaseTest {
         ConstructorSteps objConstructionSteps = new ConstructorSteps(driver);
         moveToSauceSection(objConstructionSteps);
         moveToBunsSection(objConstructionSteps);
-        checkBunsSectionVisible(objConstructionSteps);
+        checkBunsSectionActive(objConstructionSteps);
     }
     @Test
     @DisplayName("Проверка перехода к разделу Соусы")
     @Description("Тест на переход к разделу Соусы в конструкторе")
     public void checkSauceSectionMove() {
         ConstructorSteps objConstructionSteps = new ConstructorSteps(driver);
+        moveToFillingSection(objConstructionSteps);
         moveToSauceSection(objConstructionSteps);
-        checkSauceSectionVisible(objConstructionSteps);
+        checkSauceSectionActive(objConstructionSteps);
     }
     @Test
     @DisplayName("Проверка перехода к разделу Начинки")
@@ -31,7 +32,7 @@ public class ConstructorSectionsTest extends BaseTest {
     public void checkFillingSectionMove() {
         ConstructorSteps objConstructionSteps = new ConstructorSteps(driver);
         moveToFillingSection(objConstructionSteps);
-        checkFillingSectionVisible(objConstructionSteps);
+        checkFillingSectionActive(objConstructionSteps);
     }
     @Step("Переход к разделу Соусы")
     private void moveToSauceSection(ConstructorSteps steps) {
@@ -49,17 +50,17 @@ public class ConstructorSectionsTest extends BaseTest {
     }
 
     @Step("Проверка отображения раздела Булки")
-    private void checkBunsSectionVisible(ConstructorSteps steps) {
-        assertTrue("Раздел Булки не отображается", steps.isBunsSectionVisible());
+    private void checkBunsSectionActive(ConstructorSteps steps) {
+        assertTrue("Раздел Булки не отображается", steps.isBunSectionActive());
     }
 
     @Step("Проверка отображения раздела Соусы")
-    private void checkSauceSectionVisible(ConstructorSteps steps) {
-        assertTrue("Раздел Соусы не отображается", steps.isSauceSectionVisible());
+    private void checkSauceSectionActive(ConstructorSteps steps) {
+        assertTrue("Раздел Соусы не отображается", steps.isSauceSectionActive());
     }
 
     @Step("Проверка отображения раздела Начинки")
-    private void checkFillingSectionVisible(ConstructorSteps steps) {
-        assertTrue("Раздел Начинки не отображается", steps.isFillingSectionVisible());
+    private void checkFillingSectionActive(ConstructorSteps steps) {
+        assertTrue("Раздел Начинки не отображается", steps.isFillingSectionActive());
     }
 }
