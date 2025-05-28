@@ -1,5 +1,6 @@
 package page.steps;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -26,18 +27,19 @@ public class ConstructorSteps {
         this.driver = driver;
     }
 
+    @Step("Клик по логотипу Stellar Burgers")
     public void clickBurgerLogo() {
         driver.findElement(burgersLogo).click();
         new WebDriverWait(driver, Duration.ofSeconds(15))
                 .until(ExpectedConditions.visibilityOfElementLocated(mainPageCreateOrder));
     }
-
+    @Step("Клик по кнопке Конструктор")
     public void clickConstructorButton() {
         driver.findElement(constructorButton).click();
         new WebDriverWait(driver, Duration.ofSeconds(15))
                 .until(ExpectedConditions.visibilityOfElementLocated(mainPageCreateOrder));
     }
-
+    @Step("Проверка активности страницы Конструктора")
     public boolean isConstructorPageVisible() {
         try {
             return new WebDriverWait(driver, Duration.ofSeconds(10))
@@ -47,37 +49,37 @@ public class ConstructorSteps {
             return false;
         }
     }
-
+    @Step("Клик по разделу Булки")
     public void clickBunsSection() {
         driver.findElement(bunsSectionButton).click();
         new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(bunsSection));
     }
-
+    @Step("Клик по разделу Соусы")
     public void clickSauceSection() {
         driver.findElement(sauceSectionButton).click();
         new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(sauceSection));
     }
-
+    @Step("Клик по разделу Начинки")
     public void clickFillingSection() {
         driver.findElement(fillingSectionButton).click();
         new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(fillingSection));
     }
-
+    @Step("Проверка активности раздела Булки")
     public boolean isBunSectionActive() {
         return isSectionActive(activeBunsSection, "Булки");
     }
-
+    @Step("Проверка активности раздела Соусы")
     public boolean isSauceSectionActive() {
         return isSectionActive(activeSauceSection, "Соусы");
     }
-
+    @Step("Проверка активности раздела Начинки")
     public boolean isFillingSectionActive() {
         return isSectionActive(activeFillingSection, "Начинки");
     }
-
+    @Step("Проверка активности раздела")
     private boolean isSectionActive(By locator, String sectionName) {
         try {
             new WebDriverWait(driver, Duration.ofSeconds(20))

@@ -1,5 +1,6 @@
 package page.steps;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -23,28 +24,34 @@ public class RegisterSteps {
         this.driver = driver;
     }
 
+    @Step("Клик по кнопке Личный кабинет")
     public void clickPersonalAccountButton() {
         new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.elementToBeClickable(accountButtonOnTop))
                 .click();
     }
+    @Step("Ожидание появления страницы Входа")
     public void waitForPersonalAccountForm() {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.visibilityOfElementLocated(logPage));
     }
+    @Step("Клик по кнопке Зарегистрироваться")
     public void clickRegisterButton() {
         driver.findElement(registerButtonOnBottom).click();
     }
+    @Step("Ожидание появления страницы Регистрация")
     public void waitForRegistrationForm() {
         new WebDriverWait(driver, Duration.ofSeconds(5))
                 .until(ExpectedConditions.visibilityOfElementLocated(registrationPage));
     }
+    @Step("Регистрация пользователя")
     public void registerUser(String name, String email, String password) {
         driver.findElement(nameField).sendKeys(name);
         driver.findElement(emailField).sendKeys(email);
         driver.findElement(passwordField).sendKeys(password);
         driver.findElement(registerConfirmationButton).click();
     }
+    @Step("Проверка появления сообщения об ошибке для некорректного пароля")
     public boolean isPasswordErrorDisplayed() {
         try {
             return new WebDriverWait(driver, Duration.ofSeconds(5))

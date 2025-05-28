@@ -1,5 +1,6 @@
 package page.steps;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,6 +18,7 @@ public class PersonalAccountSteps {
         this.driver = driver;
     }
 
+    @Step("Проверка активности страницы Личного кабинета")
     public boolean isPersonalAccountPageVisible() {
         try {
             return new WebDriverWait(driver, Duration.ofSeconds(10))
@@ -26,11 +28,11 @@ public class PersonalAccountSteps {
             return false;
         }
         }
-
+    @Step("Клик по кнопке Выход")
     public void clickExitButton() {
         driver.findElement(exitButton).click();
     }
-
+    @Step("Проверка видимости страницы Входа")
     public boolean isLoginPageVisible() {
         try {
             return new WebDriverWait(driver, Duration.ofSeconds(10))
